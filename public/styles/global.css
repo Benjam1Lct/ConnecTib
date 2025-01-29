@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Rose:wght@300..700&display=swap');
+
+.bg-color-bright {
+    background-color: #F6F1EB;
+}
+
+.bg-color-dark {
+    background-color: #403A34;
+}
+
+.text-color-dark {
+    color: #403A34;
+}
+
+.text-color-dimmed {
+    color: #403a3493;
+}
+
+.text-color-bright {
+    color: #F6F1EB;
+}
+
+.border-color-dark {
+    border-color: #403A34;
+}
+
+.small-text {
+    font-size: 10px;
+}
+
+.dropdown-width {
+    width: calc(100% + 2px);
+}
+
+.special-font {
+    font-family: "Red Rose", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}

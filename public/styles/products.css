@@ -1,0 +1,22 @@
+.custom-slider {
+    width: 100%;
+    cursor: pointer;
+}
+
+.custom-slider::-webkit-slider-thumb {
+    background-color: #4b5563; /* Couleur de la bordure */
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 0; /* Rendre le rond carré */
+}
+
+.custom-slider::-moz-range-thumb {
+    background-color: #4b5563; /* Couleur de la bordure */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 0; /* Rendre le rond carré */
+}
