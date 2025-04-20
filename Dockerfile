@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-# Installer les dépendances système nécessaires
+# Installer extensions PHP requises + dépendances
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     zip \
@@ -8,26 +8,29 @@ RUN apt-get update && apt-get install -y \
     git \
     && docker-php-ext-install intl mysqli pdo pdo_mysql
 
-# Activer le module Apache rewrite
+# Activer le mod_rewrite
 RUN a2enmod rewrite
 
-# Copier le code du projet dans le conteneur
+# Définir le dossier public comme racine web
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+# Adapter la conf Apache à ce chemin
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
+
+# Copier les fichiers du projet
 COPY . /var/www/html
 
-# Assure les bons droits
+# Droits corrects
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Copier Composer depuis une image dédiée
+# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Aller dans le dossier du projet
 WORKDIR /var/www/html
-
-# Installer les dépendances PHP (CodeIgniter)
 RUN composer install --no-interaction --prefer-dist
 
-# Configuration Apache : autoriser les .htaccess
-RUN echo "<Directory /var/www/html>\n\
+# Configuration Apache pour .htaccess
+RUN echo "<Directory /var/www/html/public>\n\
     AllowOverride All\n\
     Require all granted\n\
 </Directory>" >> /etc/apache2/apache2.conf
